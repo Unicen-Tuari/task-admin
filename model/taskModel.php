@@ -6,27 +6,34 @@ class TaskModel
 
   function __construct()
   {
-    $this->db = new PDO('mysql:host=localhost;dbname=tareas;charset=utf8', 'root', '');
-
-    //$this->tasks = ['Task1','adsda','ads','adsad','adsad','adsad','adsad','adsad','adsad','adsad','adsad','adsad'];
+    $this->db = new PDO('mysql:host=localhost;dbname=tareas1;charset=utf8', 'root', '');
   }
 
   function getTasks(){
+    $tasks_to_return =[];
     $select = $this->db->prepare("select * from tarea");
     $select->execute();
-    return $select->fetchAll(PDO::FETCH_ASSOC);
+    $tasks = $select->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($tasks as $key => $task) {
+      $select = $this->db->prepare("select * from imagen where fk_tarea=?");
+      $select->execute(array($task['id_tarea']));
+      $images = $select->fetchAll(PDO::FETCH_ASSOC);
+      $task['imagenes'] = $images;
+      $tasks_to_return[]=$task;
+    }
+    return $tasks_to_return;
   }
 
-  function addTask($task, $description, $user){
-    $this->db->beginTransaction();
-    $select = $this->db->prepare("select * from usuario where nombre=?");
-    $select->execute(array($user));
-    $usuario = $select->fetch();
-    if($usuario){
-      $insert = $this->db->prepare("INSERT INTO tarea(Titulo, Descripcion,id_usuario) VALUES(?,?,?)");
-      $insert->execute(array($task,$description,$usuario['id_usuario']));
+  function addTask($task, $description,$images){
+    $insert = $this->db->prepare("INSERT INTO tarea(Titulo, Descripcion) VALUES(?,?)");
+    $insert->execute(array($task,$description));
+    $fk_tarea = $this->db->lastInsertId();
+
+    foreach ($images as $image) {
+      $path_image =  $this->copyImage($image);
+      $insert = $this->db->prepare("INSERT INTO imagen(path, fk_tarea) VALUES(?,?)");
+      $insert->execute(array($path_image,$fk_tarea));
     }
-    //$this->db->rollBack();
   }
 
   function deleteTask($index){
@@ -41,6 +48,12 @@ class TaskModel
     $nuevoEstado=!$estadoTarea['finalizada'];
     $update = $this->db->prepare("update tarea set finalizada=? where id_tarea=?");
     $update->execute(array($nuevoEstado,$index));
+  }
+
+  function copyImage($image){
+    $path = 'images/'.uniqid().$image["name"];
+    move_uploaded_file($image["tmp_name"], $path);
+    return $path;
   }
 }
 

@@ -7,14 +7,14 @@
   </head>
   <body>
     <h1>Tasks List:</h1>
-    <form action="index.php?action=add_task" method="POST">
+    <form action="index.php?action=add_task" method="POST" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="user">User</label>
-        <input type="text" class="form-control" id="user" name="user" placeholder="Insert user name here...">
         <label for="task">New Task</label>
         <input type="text" class="form-control" id="task" name="task" placeholder="Insert task name here...">
         <label for="description">Task Description</label>
         <input type="text" class="form-control" id="description" name="description" placeholder="Insert task description here...">
+        <label for="image">Image</label>
+        <input type="file" name="image[]" id="image" multiple>
       </div>
       <button type="submit" class="btn btn-default">Add</button>
     </form>
@@ -28,6 +28,11 @@
           <s><strong>{$task['titulo']}&nbsp;</strong>{$task['descripcion']}</s>
           {else}
             <strong>{$task['titulo']}&nbsp;</strong>{$task['descripcion']}
+            {if $task['imagenes'] }
+              {foreach from=$task['imagenes'] key=index item=imagen}
+                <img src="{$imagen['path']}" alt="{$task['titulo']}_image_{$index}" class="img-thumbnail" />
+              {/foreach}
+            {/if}
           {/if}
           <a href="index.php?action=delete_task&task={$task['id_tarea']}">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

@@ -20,12 +20,26 @@ class TaskController
 
   public function addTask(){
     $added = false;
-    if (isset($_POST['task']) && $_POST['task']!=''
-        && isset($_POST['user']) && $_POST['user']!=''){
+    //print_r($_FILES['image']);
+    if (isset($_POST['task']) && $_POST['task']!=''){
+      $imagenes = [];
+      if(isset($_FILES['image'])){
+      for($i=0; $i<count($_FILES['image']['name']);$i++)
+      {
+        if(($_FILES['image']['size'][$i]>0) && ($this->esImagen($_FILES['image']['type'][$i])))
+        {
+            $image_name = $_FILES['image']['name'][$i];
+            $image_tmp = $_FILES['image']['tmp_name'][$i];
+            $image['name']=$image_name;
+            $image['tmp_name']=$image_tmp;
+            $imagenes[] = $image;
+        }
+      }
+
+      }
       $task = $_POST['task'];
-      $user = $_POST['user'];
       $description = $_POST['description'];
-      $this->modelTask->addTask($task,$description,$user);
+      $this->modelTask->addTask($task,$description,$imagenes);
       $added=true;
     }
     $this->getList($added);
@@ -44,6 +58,10 @@ class TaskController
      }
      $this->getList(false);
    }
+
+    private function esImagen($file_type){
+      return ($file_type =='image/jpeg' || $file_type =='image/png' );
+  }
 }
 
 
