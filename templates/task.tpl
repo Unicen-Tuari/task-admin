@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Tasks List:</h1>
-    <form action="index.php?action=add_task" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" id="addForm">
       <div class="form-group">
         <label for="task">New Task</label>
         <input type="text" class="form-control" id="task" name="task" placeholder="Insert task name here...">
@@ -16,36 +16,15 @@
         <label for="image">Image</label>
         <input type="file" name="image[]" id="image" multiple>
       </div>
-      <button type="submit" class="btn btn-default">Add</button>
+      <button type="submit" id="addBtn" class="btn btn-default">Add</button>
     </form>
     {if $added }
     <div class="alert alert-success" role="alert">Yes, It worked!</div>
     {/if}
-    <ul class="list-group">
-      {foreach from=$tasks item=task}
-        <li class="list-group-item">
-          {if $task['finalizada'] }
-          <s><strong>{$task['titulo']}&nbsp;</strong>{$task['descripcion']}</s>
-          {else}
-            <strong>{$task['titulo']}&nbsp;</strong>{$task['descripcion']}
-            {if $task['imagenes'] }
-              {foreach from=$task['imagenes'] key=index item=imagen}
-                <img src="{$imagen['path']}" alt="{$task['titulo']}_image_{$index}" class="img-thumbnail" />
-              {/foreach}
-            {/if}
-          {/if}
-          <a href="index.php?action=delete_task&task={$task['id_tarea']}">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-          </a>
-          <a href="index.php?action=toggle_status_task&task={$task['id_tarea']}">
-          {if $task['finalizada'] }
-            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-          {else}
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-          {/if}
-          </a>
-        </li>
-      {/foreach}
-    </ul>
+    <div id="listTasks">
+      {include file='taskList.tpl'}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/tasks.js"></script>
   </body>
 </html>

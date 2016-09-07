@@ -42,7 +42,8 @@ class TaskController
       $this->modelTask->addTask($task,$description,$imagenes);
       $added=true;
     }
-    $this->getList($added);
+    $tasks = $this->modelTask->getTasks();
+    $this->viewTask->showTasks($tasks, $added);
   }
   public function deleteTask(){
     if (isset($_REQUEST['task'])){
