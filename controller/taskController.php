@@ -58,7 +58,8 @@ class TaskController
        $task = $_REQUEST['task'];
        $this->modelTask->toggleStatusTask($task);
      }
-     $this->getList(false);
+     $tasks = $this->modelTask->getTasks();
+     $this->viewTask->showTasks($tasks, false);
    }
 
     private function esImagen($file_type){
