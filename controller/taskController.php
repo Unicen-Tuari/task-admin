@@ -50,7 +50,8 @@ class TaskController
       $task = $_REQUEST['task'];
       $this->modelTask->deleteTask($task);
     }
-    $this->getList(false);
+    $tasks = $this->modelTask->getTasks();
+    $this->viewTask->showTasks($tasks, false);
    }
    public function toggleStatusTask(){
      if (isset($_REQUEST['task'])){

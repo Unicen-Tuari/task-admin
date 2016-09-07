@@ -11,7 +11,7 @@
           {/foreach}
         {/if}
       {/if}
-      <a href="index.php?action=delete_task&task={$task['id_tarea']}">
+      <a class="deleteAction" id-tarea="{$task['id_tarea']}" href="#">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
       </a>
       <a href="index.php?action=toggle_status_task&task={$task['id_tarea']}">
