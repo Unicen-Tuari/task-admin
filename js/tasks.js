@@ -10,7 +10,7 @@ function addDeleteEvents(){
   $('.deleteAction').click(function(){
       event.preventDefault();
       var id_tarea = $(this).attr("id-tarea");
-      $.get("index.php?action=delete_task",
+      $.get("delete_task",
         { task: id_tarea },
         function(data){
           refreshList(data)
@@ -31,15 +31,24 @@ function addUpdateEvents(){
 }
 
 $( document ).ready(function() {
-  $('#addBtn').click(function(){
+  $('#addForm').submit(function(){
     event.preventDefault();
-    $.post("index.php?action=add_task",
-      $("#addForm").serialize(),
-      function(data){
-        refreshList(data)
-        $('#addForm').trigger("reset");
-      });
-  });
+    var formData = new FormData(this);
+    $.ajax({
+     method: "POST",
+     url: "index.php?action=add_task",
+     data: formData,
+     contentType: false,
+     cache: false,
+     processData:false,
+     success: function(data){
+       refreshList(data);
+       $('#addForm').trigger("reset");
+     }
+   });
+
+ });
+
   addDeleteEvents();
   addUpdateEvents();
 });
