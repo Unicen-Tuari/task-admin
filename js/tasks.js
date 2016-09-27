@@ -22,7 +22,7 @@ function addUpdateEvents(){
   $('.updateAction').click(function(){
       event.preventDefault();
       var id_tarea = $(this).attr("id-tarea");
-      $.get("index.php?action=toggle_status_task",
+      $.get("toggle_status_task",
         { task: id_tarea },
         function(data){
           refreshList(data)
