@@ -73,13 +73,27 @@ class TaskModel
     move_uploaded_file($image["tmp_name"], $path);
     return $path;
   }
+
   function updateTask($id,$task, $description){
     $insert = $this->db->prepare("UPDATE tarea SET Titulo=?, Descripcion=? WHERE id_tarea =?");
     $insert->execute(array($task,$description,$id));
-  
+
     return $this->getTask($id);
   }
 
+  function getTaskById($id){
+    $select = $this->db->prepare("select * from tarea where id_tarea = ?");
+    $select->execute(array($id));
+    $task = $select->fetch(PDO::FETCH_ASSOC);
+
+      $select = $this->db->prepare("select * from imagen where fk_tarea=?");
+      $select->execute(array($task['id_tarea']));
+      $images = $select->fetchAll(PDO::FETCH_ASSOC);
+      $task['imagenes'] = $images;
+
+
+    return $task;
+  }
 }
 
 

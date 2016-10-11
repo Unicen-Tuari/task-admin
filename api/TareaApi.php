@@ -1,14 +1,13 @@
 <?php
-require 'api.php';
-require '../model/taskModel.php';
+require_once('../model/taskModel.php');
+require_once('ApiBase.php');
 
-class TareaApi extends Api
-{
+class TareaApi extends Api{
 
   private $model;
 
-  public function __construct($request)
-  {
+  public function __construct($request){
+
     parent::__construct($request);
     $this->model = new TaskModel();
   }
@@ -41,7 +40,7 @@ class TareaApi extends Api
         break;
     }
   }
-}
 
+}
 
  ?>

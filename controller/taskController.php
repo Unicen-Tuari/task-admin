@@ -42,21 +42,24 @@ class TaskController
       $this->modelTask->addTask($task,$description,$imagenes);
       $added=true;
     }
-    $this->getList($added);
+    $tasks = $this->modelTask->getTasks();
+    $this->viewTask->showTasks($tasks, $added);
   }
   public function deleteTask(){
     if (isset($_REQUEST['task'])){
       $task = $_REQUEST['task'];
       $this->modelTask->deleteTask($task);
     }
-    $this->getList(false);
+    $tasks = $this->modelTask->getTasks();
+    $this->viewTask->showTasks($tasks, false);
    }
    public function toggleStatusTask(){
      if (isset($_REQUEST['task'])){
        $task = $_REQUEST['task'];
        $this->modelTask->toggleStatusTask($task);
      }
-     $this->getList(false);
+     $tasks = $this->modelTask->getTasks();
+     $this->viewTask->showTasks($tasks, false);
    }
 
     private function esImagen($file_type){
