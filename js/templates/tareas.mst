@@ -1,0 +1,14 @@
+<li class="list-group-item" >
+  {{^finalizada}} <s> {{/finalizada}}
+    {{titulo}}
+  {{^finalizada}} </s> {{/finalizada}}
+
+**img-placeholder**
+
+<a class="deleteAction glyphicon glyphicon-trash" id-tarea="{{id_tarea}}" href="#"></a>
+
+<a class="updateAction glyphicon
+{{^finalizada}}glyphicon-repeat{{/finalizada}}
+{{#finalizada}}glyphicon-ok{{/finalizada}}"
+ id-tarea="{{id_tarea}}" href="#"></a>
+</li>

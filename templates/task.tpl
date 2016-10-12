@@ -7,6 +7,10 @@
   </head>
   <body>
     <h1>Tasks List:</h1>
+    <button id="refresh" type="button" class="btn btn-default btn-xs pull-right " aria-label="Refresh">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+ </button>
+
     <form action="" method="POST" enctype="multipart/form-data" id="addForm">
       <div class="form-group">
         <label for="task">New Task</label>
@@ -25,6 +29,8 @@
       {include file='taskList.tpl'}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.js"></script>
     <script src="js/tasks.js"></script>
+
   </body>
 </html>
