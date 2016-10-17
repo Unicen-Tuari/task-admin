@@ -43,7 +43,7 @@ CREATE TABLE `imagen` (
 CREATE TABLE `tarea` (
   `id_tarea` int(11) NOT NULL,
   `titulo` varchar(250) NOT NULL,
-  `descripcion` int(250) NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
   `finalizada` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
