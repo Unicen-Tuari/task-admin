@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-10-2016 a las 15:29:21
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.5.38
+-- Tiempo de generación: 27-10-2016 a las 21:22:10
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tareas1`
 --
-CREATE DATABASE IF NOT EXISTS `tareas1` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `tareas1`;
 
 -- --------------------------------------------------------
 
@@ -34,6 +32,15 @@ CREATE TABLE `imagen` (
   `fk_tarea` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `imagen`
+--
+
+INSERT INTO `imagen` (`id`, `path`, `fk_tarea`) VALUES
+(11, 'images/58110c88a74easuenos miedo.jpg', 13),
+(12, 'images/58110cec1ac52copia.jpg', 14),
+(13, 'images/58110cec1ba04suenos miedo.jpg', 14);
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +53,32 @@ CREATE TABLE `tarea` (
   `descripcion` varchar(250) NOT NULL,
   `finalizada` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tarea`
+--
+
+INSERT INTO `tarea` (`id_tarea`, `titulo`, `descripcion`, `finalizada`) VALUES
+(14, 'asd', 'dsa', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `email`, `password`) VALUES
+(1, 'javier.dottori@gmail.com', '$2y$10$Mw2CnC/VGpFhlCMkigc9TerWGoExvVExNd8DDZmuNLh500wZTWf7a');
 
 --
 -- Índices para tablas volcadas
@@ -64,6 +97,12 @@ ALTER TABLE `tarea`
   ADD PRIMARY KEY (`id_tarea`);
 
 --
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -71,12 +110,12 @@ ALTER TABLE `tarea`
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `tarea`
 --
 ALTER TABLE `tarea`
-  MODIFY `id_tarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_tarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

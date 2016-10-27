@@ -1,6 +1,8 @@
 <?php
-  require('controller/TaskController.php');
-  require('config/appConfig.php');
+  require_once('controller/TaskController.php');
+  require_once('config/appConfig.php');
+  require_once('controller/LoginController.php');
+
   $controllerTask = new TaskController();
 
   switch (isset($_GET[AppConfig::$ACTION]) ? $_GET[AppConfig::$ACTION] : AppConfig::$ACTION_DEFAULT ) {
@@ -15,6 +17,9 @@
           break;
       case AppConfig::$ACTION_TOGGLE_STATUS_TASK:
           $controllerTask->toggleStatusTask();
+          break;
+      case AppConfig::$ACTION_LOGIN:
+          (new LoginController())->login();
           break;
       default:
           $controllerTask->getList('');
