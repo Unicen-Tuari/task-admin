@@ -1,6 +1,7 @@
 <?php
-require('view/taskView.php');
-require('model/taskModel.php');
+require_once('view/taskView.php');
+require_once('model/taskModel.php');
+require_once('loginController.php');
 
 class TaskController
 {
@@ -11,6 +12,7 @@ class TaskController
   {
     $this->modelTask = new TaskModel();
     $this->viewTask = new TaskView();
+    (new LoginController())->check();
   }
 
   public function getList($added){

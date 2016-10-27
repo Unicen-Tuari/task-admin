@@ -7,6 +7,7 @@ class AppConfig{
   public static $ACTION_DELETE_TASK = 'delete_task';
   public static $ACTION_TOGGLE_STATUS_TASK = 'toggle_status_task';
   public static $ACTION_LOGIN = 'login';
+  public static $ACTION_LOGOUT = 'logout';
 }
 
 ?>

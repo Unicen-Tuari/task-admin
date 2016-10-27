@@ -1,6 +1,7 @@
 <?php
 require_once('view/loginView.php');
-require('model/userModel.php');
+require_once('model/userModel.php');
+require_once('config/appConfig.php');
 
 class LoginController
 {
@@ -26,16 +27,33 @@ class LoginController
       $userData = $this->modelUser->getUser($user);
       if(password_verify($pass, $userData['password']))
       {
-        
-        echo "Se logueo correctamente";
+        session_start();
+        $_SESSION['user'] = $user;
+        header("Location: /web/tupar/".AppConfig::$ACTION_SHOW_TASKS);
       }
       else {
         $this->viewLogin->show(array("El nombre de usuario o contraseña no es válido"));
       }
-
     }
   }
 
+
+    public function logout()
+    {
+      session_start();
+      session_destroy();
+      header("Location: /web/tupar");
+      die();
+    }
+  public function check()
+  {
+    session_start();
+    if(!isset($_SESSION['user']))
+    {
+      header("Location: /web/tupar");
+      die();
+    }
+  }
 
 }
 
