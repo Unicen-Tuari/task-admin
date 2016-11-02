@@ -1,12 +1,14 @@
 {{#paquete}}
 <li class="list-group-item" >
-  {{^finalizada}} <s> {{/finalizada}}
+  {{#finalizada}} <s> {{/finalizada}}
     {{titulo}}
-  {{^finalizada}} </s> {{/finalizada}}
+  {{#finalizada}} </s> {{/finalizada}}
 
-{{#imagenes}}
-  <img src="{{path}}" class="img-thumbnail"  />
-{{/imagenes}}
+{{^finalizada}}
+  {{#imagenes}}
+    <img src="{{path}}" class="img-thumbnail"  />
+  {{/imagenes}}
+{{/finalizada}}
 
 <a class="deleteAction glyphicon glyphicon-trash" id-tarea="{{id_tarea}}" href="#"></a>
 

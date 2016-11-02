@@ -10,6 +10,9 @@ $.ajax({
 });
 
 function processTask(data){
+      for (var i = 0; i < data.length; i++) {
+        data[i].finalizada = (data[i].finalizada==0)? false : true;
+      }
       var nuevaTarea = Mustache.render(templateTareas,{paquete:data});
       //Esta el placeholder
       $("#listTasks").append(nuevaTarea);
