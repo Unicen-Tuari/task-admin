@@ -1,9 +1,12 @@
+{{#paquete}}
 <li class="list-group-item" >
   {{^finalizada}} <s> {{/finalizada}}
     {{titulo}}
   {{^finalizada}} </s> {{/finalizada}}
 
-**img-placeholder**
+{{#imagenes}}
+  <img src="{{path}}" class="img-thumbnail"  />
+{{/imagenes}}
 
 <a class="deleteAction glyphicon glyphicon-trash" id-tarea="{{id_tarea}}" href="#"></a>
 
@@ -12,3 +15,4 @@
 {{#finalizada}}glyphicon-ok{{/finalizada}}"
  id-tarea="{{id_tarea}}" href="#"></a>
 </li>
+{{/paquete}}

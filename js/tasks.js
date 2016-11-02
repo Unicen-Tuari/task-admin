@@ -1,34 +1,20 @@
 "use strict";
 
-function processImages(nuevaTarea,images){
-  $.ajax({
-    url: 'js/templates/imagen.mst',
-    success: function(template){
-      var htmlImagenes = '';
-      for (var i = 0; i < images.length; i++) {
-        htmlImagenes += Mustache.render(template,images[i]);
-      }
-      nuevaTarea = nuevaTarea.replace("**img-placeholder**",htmlImagenes);
-      $("#listTasks").append(nuevaTarea);
-    }
-  });
-}
+var templateTareas;
+
+$.ajax({
+  url: 'js/templates/tareas.mst',
+  success: function(templateReceived){
+    templateTareas = templateReceived;
+  }
+});
 
 function processTask(data){
-
-    $.ajax({
-      url: 'js/templates/tareas.mst',
-      success: function(template) {
-        for (var i = 0; i < data.length; i++) {
-         var nuevaTarea = Mustache.render(template,data[i]);
-         //Esta el placeholder
-         processImages(nuevaTarea,data[i].imagenes);
-        }
-        addDeleteEvents();
-        addUpdateEvents();
-      }
-    });
-
+      var nuevaTarea = Mustache.render(templateTareas,{paquete:data});
+      //Esta el placeholder
+      $("#listTasks").append(nuevaTarea);
+      addDeleteEvents();
+      addUpdateEvents();
 }
 
 function refreshListJSON(data){
